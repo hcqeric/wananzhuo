@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 import 'package:wanandroid/pages/main_left_page.dart';
+import 'package:wanandroid/pages/home_page.dart';
+import 'package:wanandroid/pages/system_page.dart';
+import 'package:wanandroid/pages/nav_page.dart';
+import 'package:wanandroid/pages/wechat_page.dart';
+import 'package:wanandroid/pages/project_page.dart';
+import 'package:wanandroid/pages/search_page.dart';
 
 void main() {
   debugPaintSizeEnabled = true;
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget{
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -36,39 +42,78 @@ class ScaffoldRoute extends StatefulWidget {
 }
 
 class _ScaffoldRouteState extends State<ScaffoldRoute>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   int _selectedIndex = 0;
   List bottomNavTxts = ['首页', '体系', '公众号', '导航', '项目'];
+  var title = "玩Android";
   List<BottomNavigationBarItem> bottomNavViews;
+
+  var _body;
+
+  initData() {
+    _body = IndexedStack(
+      children: <Widget>[HomePage(), SystemPage(), WechatPage(), NavPage(), ProjectPage()],
+      index: _selectedIndex,
+    );
+
+  }
+
 
   @override
   void initState() {
     super.initState();
+    bottomNavViews = <BottomNavigationBarItem>[
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.home),
+        title: Text(bottomNavTxts[0]),
+        backgroundColor: Colors.blue,
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.widgets),
+        title: Text(bottomNavTxts[1]),
+        backgroundColor: Colors.blue,
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.person),
+        title: Text(bottomNavTxts[2]),
+        backgroundColor: Colors.blue,
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.widgets),
+        title: Text(bottomNavTxts[3]),
+        backgroundColor: Colors.blue,
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.person),
+        title: Text(bottomNavTxts[4]),
+        backgroundColor: Colors.blue,
+      ),
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
+    initData();
     return Scaffold(
       appBar: AppBar(
         //导航栏
-        title: Text("玩Android"),
+        title: Text(title),
         actions: <Widget>[
           //导航栏右侧菜单
-          IconButton(icon: Icon(Icons.share), onPressed: () {}),
+          IconButton(icon: Icon(Icons.search), onPressed: () {
+            Navigator.push(context, new MaterialPageRoute(builder: (context){
+              return new Search();
+            }));
+          }),
         ],
       ),
+      body: _body,
       drawer: new MainDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         // 底部导航
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.business), title: Text('Business')),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.school), title: Text('School')),
-        ],
+        items: bottomNavViews.map((BottomNavigationBarItem navigationView) => navigationView).toList(),
         currentIndex: _selectedIndex,
-        fixedColor: Colors.blue,
+        type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
       ),
       floatingActionButton: FloatingActionButton(
@@ -81,6 +126,11 @@ class _ScaffoldRouteState extends State<ScaffoldRoute>
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      if(index == 0){
+        title = "玩Android";
+      }else{
+        title = bottomNavTxts[index];
+      }
     });
   }
 

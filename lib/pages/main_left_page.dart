@@ -44,6 +44,7 @@ class MainDrawer extends StatelessWidget {
                     leading: const Icon(Icons.add),
                     title: const Text('Add account'),
                     onTap: (){
+//                      Navigator.pop(context);
                       Navigator.push(context, new MaterialPageRoute(builder: (context){
                         return new Setting();
                       }));
