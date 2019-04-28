@@ -9,7 +9,7 @@ import 'package:wanandroid/pages/project_page.dart';
 import 'package:wanandroid/pages/search_page.dart';
 
 void main() {
-  debugPaintSizeEnabled = true;
+//  debugPaintSizeEnabled = true;
   runApp(MyApp());
 }
 

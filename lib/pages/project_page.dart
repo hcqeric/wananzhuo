@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:wanandroid/pages/search_page.dart';
 
 class ProjectPage extends StatefulWidget {
 
@@ -24,21 +24,25 @@ class ProjectState extends State<ProjectPage> with SingleTickerProviderStateMixi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        bottom: TabBar(
-            controller: _tabController,
-            tabs: tabs.map((e) => Tab(text: e)).toList()
-        ),
-      ),
+        // ignore: argument_type_not_assignable
+        appBar:
+          TabBar( //生成Tab菜单
+              labelColor: Theme.of(context).primaryColor,
+              indicatorColor: Theme.of(context).primaryColor,
+              unselectedLabelColor: Colors.black,
+              controller: _tabController,
+              tabs: tabs.map((e) => Tab(text: e)).toList()
+          ),
+
       body: TabBarView(
-        controller: _tabController,
-        children: tabs.map((e) { //创建3个Tab页
-          return Container(
-            alignment: Alignment.center,
-            child: Text(e, textScaleFactor: 5),
-          );
-        }).toList(),
-      ),
+                    controller: _tabController,
+                    children: tabs.map((e) { //创建3个Tab页
+                      return Container(
+                        alignment: Alignment.center,
+                        child: Text(e, textScaleFactor: 5),
+                      );
+                    }).toList(),
+                  ) ,
     );
   }
 
