@@ -24,7 +24,6 @@ class ProjectState extends State<ProjectPage> with SingleTickerProviderStateMixi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // ignore: argument_type_not_assignable
         appBar:
           TabBar( //生成Tab菜单
               labelColor: Theme.of(context).primaryColor,
@@ -33,7 +32,6 @@ class ProjectState extends State<ProjectPage> with SingleTickerProviderStateMixi
               controller: _tabController,
               tabs: tabs.map((e) => Tab(text: e)).toList()
           ),
-
       body: TabBarView(
                     controller: _tabController,
                     children: tabs.map((e) { //创建3个Tab页
